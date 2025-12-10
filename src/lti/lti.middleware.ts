@@ -26,23 +26,9 @@ export class LtiMiddleware implements NestMiddleware, OnModuleInit {
       { plugin: db },
       {
         appRoute: '/',
-        invalidTokenRoute: '/invalidtoken',
-        sessionTimeoutRoute: '/sessionTimeout',
         keysetRoute: '/keys',
         loginRoute: '/login',
         devMode: true,
-        tokenMaxAge: 60,
-      },
-    );
-    // Whitelisting the main app route and /nolti to create a landing page
-    lti.whitelist(
-      {
-        route: new RegExp(/^\/nolti$/),
-        method: 'get',
-      },
-      {
-        route: new RegExp(/^\/ping$/),
-        method: 'get',
       },
     );
     lti.onConnect((token, req: Request, res: Response, next: NextFunction) => {
